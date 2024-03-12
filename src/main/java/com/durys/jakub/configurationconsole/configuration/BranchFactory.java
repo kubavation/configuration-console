@@ -13,6 +13,8 @@ class BranchFactory {
     private final GHRepository repository;
     private final String masterBranchName;
 
+    private static final String REF_URI = "refs/heads/";
+
     BranchFactory(GHRepository repository, @Value("${git.master-branch-name}") String masterBranchName) {
         this.repository = repository;
         this.masterBranchName = masterBranchName;
@@ -27,7 +29,8 @@ class BranchFactory {
         }
 
         try {
-            return repository.createRef("refs/heads/%s".formatted(client), masterBranchId()).getRef();
+            return repository.createRef("%s%s".formatted(REF_URI, client), masterBranchId())
+                    .getRef().replace(REF_URI, "");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
