@@ -1,6 +1,5 @@
 package com.durys.jakub.configurationconsole.configuration;
 
-import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,9 +18,9 @@ class BranchFactory {
         this.masterBranchName = masterBranchName;
     }
 
-    String createClientBranch(String client) {
+    String retrieveClientBranchName(String client) {
 
-        String clientBranchName = retrieveClientBranchName(client);
+        String clientBranchName = getClientBranchName(client);
 
         if (Objects.nonNull(clientBranchName)) {
             return clientBranchName;
@@ -35,7 +34,7 @@ class BranchFactory {
 
     }
 
-    private String retrieveClientBranchName(String client) {
+    private String getClientBranchName(String client) {
         try {
             return repository.getBranch(client).getName();
         } catch (IOException e) {
