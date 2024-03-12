@@ -13,7 +13,7 @@ class GithubConfiguration {
 
     @Bean
     GitHub client(GithubProperties properties) throws IOException {
-        return new GitHubBuilder().withPassword(properties.username(), properties.password()).build();
+        return new GitHubBuilder().withJwtToken(properties.token()).build();
     }
 
     @Bean
