@@ -33,8 +33,7 @@ class BranchFactory {
         }
 
         try {
-            return repository.createRef("%s%s".formatted(REF_URI, client), masterBranchId())
-                    .getRef().replace(REF_URI, "");
+            return repository.createRef("%s%s".formatted(REF_URI, client), masterBranchId()).getRef();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +42,7 @@ class BranchFactory {
 
     private String getClientBranchName(String client) {
         try {
-            return repository.getBranch(client).getName();
+            return "%s%s".formatted(REF_URI, repository.getBranch(client).getName());
         } catch (IOException e) {
             return null;
         }
