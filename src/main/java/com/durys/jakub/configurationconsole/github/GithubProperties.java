@@ -3,7 +3,7 @@ package com.durys.jakub.configurationconsole.github;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("git")
-public class GithubProperties {
+class GithubProperties {
 
     private String username;
     private String password;
@@ -15,15 +15,15 @@ public class GithubProperties {
         this.repository = repository;
     }
 
-    public String username() {
+    String username() {
         return username;
     }
 
-    public String password() {
+    String password() {
         return password;
     }
 
-    public String repository() {
+    String repository() {
         return repository;
     }
 }
