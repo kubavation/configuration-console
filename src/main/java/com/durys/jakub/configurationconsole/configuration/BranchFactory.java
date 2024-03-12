@@ -22,6 +22,10 @@ class BranchFactory {
 
     String retrieveClientBranchName(String client) {
 
+        if (Objects.isNull(client)) {
+            return masterBranchName;
+        }
+
         String clientBranchName = getClientBranchName(client);
 
         if (Objects.nonNull(clientBranchName)) {
