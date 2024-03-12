@@ -1,5 +1,6 @@
 package com.durys.jakub.configurationconsole.configuration;
 
+import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,27 +19,23 @@ class BranchFactory {
         this.masterBranchName = masterBranchName;
     }
 
-    void createClientBranch(String client) {
+    String createClientBranch(String client) {
 
         String clientBranchName = retrieveClientBranchName(client);
 
         if (Objects.nonNull(clientBranchName)) {
-            throw new RuntimeException("Client branch already exists");
+            return clientBranchName;
         }
 
         try {
-            repository.createRef("refs/heads/%s".formatted(client), masterBranchId());
+            return repository.createRef("refs/heads/%s".formatted(client), masterBranchId()).getRef();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    boolean clientBranchExists(String client) {
-        return Objects.nonNull(retrieveClientBranchName(client));
-    }
-
-    String retrieveClientBranchName(String client) {
+    private String retrieveClientBranchName(String client) {
         try {
             return repository.getBranch(client).getName();
         } catch (IOException e) {
