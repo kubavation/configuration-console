@@ -8,11 +8,13 @@ class GithubProperties {
     private String username;
     private String password;
     private String repository;
+    private String token;
 
-    GithubProperties(String username, String password, String repository) {
+    GithubProperties(String username, String password, String repository, String token) {
         this.username = username;
         this.password = password;
         this.repository = repository;
+        this.token = token;
     }
 
     String username() {
@@ -25,5 +27,9 @@ class GithubProperties {
 
     String repository() {
         return repository;
+    }
+
+    String token() {
+        return token;
     }
 }
