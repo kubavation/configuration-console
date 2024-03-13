@@ -1,6 +1,8 @@
 package com.durys.jakub.configurationconsole.configuration;
 
+import org.kohsuke.github.GHBranch;
 import org.kohsuke.github.GHContent;
+import org.kohsuke.github.GHContentUpdateResponse;
 import org.kohsuke.github.GHRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -45,8 +47,23 @@ class ContentFactory {
         return repository.getDirectoryContent(subsystem, ref).stream()
                 .filter(content -> content.getName().equals(propertiesFileName))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Cannot find properties file"));
+                .orElse(generatePropertiesFile(ref, subsystem));
 
+    }
+
+    private GHContent generatePropertiesFile(String ref, String subsystem) throws IOException {
+
+        GHBranch branch = repository.getBranch(ref);
+
+        GHContentUpdateResponse response = repository.createContent()
+                .content("")
+                .branch(ref)
+                .path("%s/%s".formatted(subsystem, propertiesFileName))
+                .message(commitMessageProvider.commitMessage())
+                .sha(branch.getSHA1())
+                .commit();
+
+        return response.getContent();
     }
 
 }
