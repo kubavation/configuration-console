@@ -5,11 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("git")
 class GithubProperties {
 
-    private String username;
-    private String password;
-    private String repository;
-    private String token;
-    private String masterBranchName;
+    private final String username;
+    private final String password;
+    private final String repository;
+    private final String token;
+    private final String masterBranchName;
 
     GithubProperties(String username, String password, String repository, String token, String masterBranchName) {
         this.username = username;
