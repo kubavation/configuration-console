@@ -19,13 +19,13 @@ public class ConfigurationService {
 
         String branchName = branchFactory.retrieveClientBranchName(client);
 
-        contentFactory.savePropertiesContent(branchName, content);
+        contentFactory.savePropertiesContent(branchName, subsystem, content);
     }
 
     public String loadConfiguration(String subsystem, String client) throws IOException {
 
         String branchName = branchFactory.retrieveClientBranchName(client);
 
-        return contentFactory.loadContent(branchName);
+        return contentFactory.loadContent(branchName, subsystem);
     }
 }
