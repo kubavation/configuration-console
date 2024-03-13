@@ -1,5 +1,6 @@
 package com.durys.jakub.configurationconsole.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.GHRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Component
+@Slf4j
 class BranchFactory {
 
     private final GHRepository repository;
@@ -22,18 +24,26 @@ class BranchFactory {
 
     String retrieveClientBranchName(String client) {
 
+        log.info("retrieveClientBranchName | retrieving client branch name [client: {}]", client);
+
         if (Objects.isNull(client)) {
+            log.info("retrieveClientBranchName | client is empty, returning master branch [branch: {}]", masterBranchName);
             return masterBranchName;
         }
 
         String clientBranchName = getClientBranchName(client);
 
         if (Objects.nonNull(clientBranchName)) {
+            log.info("retrieveClientBranchName | client branch retrieved [branch: {}]", clientBranchName);
             return clientBranchName;
         }
 
         try {
-            return repository.createRef("%s%s".formatted(REF_URI, client), masterBranchId()).getRef();
+            String branch = repository.createRef("%s%s".formatted(REF_URI, client), masterBranchId()).getRef();
+
+            log.info("retrieveClientBranchName | client branch created [branch: {}]", branch);
+
+            return branch;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
