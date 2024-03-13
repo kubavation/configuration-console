@@ -15,11 +15,11 @@ public class ConfigurationService {
         this.contentFactory = contentFactory;
     }
 
-    public void changeConfiguration(String subsystem, String client, String property, String value) throws IOException {
+    public void changeConfiguration(String subsystem, String client, String content) throws IOException {
 
         String branchName = branchFactory.retrieveClientBranchName(client);
 
-
+        contentFactory.savePropertiesContent(branchName, content);
 
     }
 
