@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 class ConfigurationController {
 
-    @PutMapping("/configuration/{subsystem}/{property}")
-    void changeConfiguration(@PathVariable String subsystem, @PathVariable String property,
-                             @RequestParam(required = false) String client, @RequestBody Configuration configuration) {
+    @PutMapping("/configuration/{client}/{subsystem}")
+    void changeConfiguration(@PathVariable String subsystem, @PathVariable String client,
+                             @RequestBody Configuration configuration) {
 
         //todo
     }
