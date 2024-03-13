@@ -28,4 +28,10 @@ class ContentFactory {
         fileContent.update(content, commitMessageProvider.commitMessage(), ref);
     }
 
+    String loadContent(String ref) throws IOException {
+        GHContent fileContent = repository.getFileContent(propertiesFileName, ref);
+
+        return fileContent.getContent();
+    }
+
 }
