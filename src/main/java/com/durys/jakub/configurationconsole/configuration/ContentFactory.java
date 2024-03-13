@@ -12,17 +12,20 @@ class ContentFactory {
 
     private final GHRepository repository;
     private final String propertiesFileName;
+    private final CommitMessageProvider commitMessageProvider;
 
-    ContentFactory(GHRepository repository, @Value("${properties.file}") String propertiesFileName) {
+    ContentFactory(GHRepository repository, @Value("${properties.file}") String propertiesFileName,
+                   CommitMessageProvider commitMessageProvider) {
         this.repository = repository;
         this.propertiesFileName = propertiesFileName;
+        this.commitMessageProvider = commitMessageProvider;
     }
 
     void savePropertiesContent(String ref, String content) throws IOException {
 
         GHContent fileContent = repository.getFileContent(propertiesFileName, ref);
 
-        fileContent.update(content, "commit-123", ref);
+        fileContent.update(content, commitMessageProvider.commitMessage(), ref);
     }
 
 }
