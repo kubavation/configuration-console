@@ -17,7 +17,7 @@ class ConfigurationServiceTest {
     @Test
     void shouldChangeConfiguration() throws IOException {
 
-        assertDoesNotThrow(() -> configurationService.changeConfiguration("cm-company-management", "TEST1", "val=123"));
+        assertDoesNotThrow(() -> configurationService.changeConfiguration("cm-company-management", "TEST3", "val=1234"));
 
     }
 
