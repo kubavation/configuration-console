@@ -1,0 +1,9 @@
+version: '3'
+services:
+  configuration-console:
+    container_name: configuration-console
+    build:
+      dockerfile: Dockerfile
+    image: configuration-console-image:latest
+    ports:
+      - 8890:8888

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.durys.jakub</groupId>
 	<artifactId>configuration-console</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>configuration-console</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -47,6 +47,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.durys.jakub.configurationconsole.ConfigurationConsoleApplication</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+
 			</plugin>
 		</plugins>
 	</build>
